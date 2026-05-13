@@ -1,0 +1,68 @@
+.upload-section {
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  padding: 1.5rem;
+}
+
+.drop-zone {
+  border: 2px dashed var(--border);
+  border-radius: 8px;
+  padding: 3rem 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: #f9fafb;
+}
+
+.drop-zone:hover {
+  border-color: var(--primary);
+  background-color: #f0fdf4;
+}
+
+.drop-zone.active {
+  border-color: var(--primary);
+  background-color: #e0f2fe;
+}
+
+.drop-zone.uploading {
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+.upload-icon {
+  width: 48px;
+  height: 48px;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+.drop-zone:hover .upload-icon, .drop-zone.active .upload-icon {
+  color: var(--primary);
+}
+
+.drop-content h3 {
+  font-size: 1.125rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-main);
+}
+
+.drop-content p {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.loader {
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid var(--primary);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
