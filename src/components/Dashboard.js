@@ -3,7 +3,7 @@ import FileUpload from './FileUpload';
 import FileList from './FileList';
 import './Dashboard.css';
 
-const Dashboard = () => {
+const Dashboard = ({ user }) => {
   // Mock data for files
   const [files, setFiles] = useState([
     { id: 1, name: 'Project_Proposal.pdf', size: '2.4 MB', updatedAt: '2026-04-25T10:00:00Z', version: 'v2' },

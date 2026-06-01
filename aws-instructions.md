@@ -37,7 +37,62 @@ Bu sənəd "Serverless Dropbox Clone" layihəsinin AWS xidmətlərinin (S3, Lamb
 1. **AWS Amplify** xidmətinə keçin.
 2. Yeni bir tətbiq (app) yaradın. **Host web app** seçin və layihənin GitHub reposunu bağlayın.
 3. Build settings avtomatik təyin ediləcək, layihəni deploy edin.
-4. Authentication (Giriş/Qeydiyyat) üçün **Amplify Studio**-da **Authentication** əlavə edin və ya CLI vasitəsilə (`amplify add auth`) Cognito User Pool yaradın.
-5. Yaranan konfiqurasiya detallarını (`aws-exports.js`) React layihənizin `src` qovluğuna əlavə edin və `index.js`-də Amplify.configure() daxilində çağırın.
+4. Authentication (Giriş/Qeydiyyat) üçün Cognito User Pool yaradın:
+   
+   **Seçim A: CLI vasitəsilə (Tövsiyə olunur)**
+   - Terminalda layihə qovluğunda aşağıdakı komandasını çalıştırın:
+     ```bash
+     amplify add auth
+     ```
+   - Suallar soruşulacaq, aşağıdakı cavabları seçin:
+     - "Do you want to use the default authentication and security configuration?" → **Yes, use the default config.**
+     - "How do you want users to be able to sign in?" → **Username** (və ya E-mail)
+     - "Do you want to configure advanced settings?" → **No, I am done.**
+   - Daha sonra əlavə etdiklərinizi deploy edin:
+     ```bash
+     amplify push
+     ```
+   
+   **Seçim B: Amplify Studio vasitəsilə**
+   - AWS Console-da **Amplify** xidmətinə daxil olun
+   - Layihəni seçin
+   - **Authentication** tabına keçin
+   - **Set up authentication** düyməsini basın
+   - **Cognito User Pool** seçin
+   - Tələb olunan ayarları qiymətləndirin (username/email, parol tələbləri və s.)
+   - **Save and Deploy** düyməsini basın
+
+5. Amplify konfigurasyonu `src` qovluğunda `aws-exports.js` faylı ilə avtomatik yaradılacaq.
+   - `src/index.js` faylını açın və aşağıdakı kodları əlavə edin:
+     ```javascript
+     import { Amplify } from 'aws-amplify';
+     import awsExports from './aws-exports';
+     
+     Amplify.configure(awsExports);
+     ```
+   
+   - `src/App.js` faylında authentication komponentini istifadə edin:
+     ```javascript
+     import { Authenticator } from '@aws-amplify/ui-react';
+     
+     function App() {
+       return (
+         <Authenticator>
+           {({ signOut, user }) => (
+             <div>
+               <p>Salam {user.username}!</p>
+               <button onClick={signOut}>Çıxış</button>
+               {/* Digər komponentlər */}
+             </div>
+           )}
+         </Authenticator>
+       );
+     }
+     ```
+   
+   - Daha sonra npm paketlərini quraşdırın:
+     ```bash
+     npm install aws-amplify @aws-amplify/ui-react
+     ```
 
 Bu quraşdırma sayəsində AWS Free Tier çərçivəsində işləyən və Serverless memarlıqla idarə olunan fayl saxlama sistemi əldə edəcəksiniz.
