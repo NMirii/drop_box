@@ -7,10 +7,6 @@ import awsExports from './aws-exports';
 
 // Configure Amplify with AWS exports
 Amplify.configure(awsExports);
-    ]
-  }
-});
-*/
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
